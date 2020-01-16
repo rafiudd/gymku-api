@@ -1,4 +1,4 @@
 {
-    "connectionString": "mongodb://rafiudd:123123123@0.0.0.0:27017/gymku",
+    "connectionString": "mongodb://rafiudd:123123123@0.0.0.0:27018/gymku",
     "secret": "LOKIJUHYAQSWDE"
 }
