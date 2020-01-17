@@ -36,10 +36,26 @@ async function registerAdmin(req, res) {
 
 async function create(req,res) {
     let model = {
-        username : req.body.username,
-        fullname : req.body.fullname,
-        email : req.body.email,
-        password : bcrypt.hashSync(req.body.password, 10)
+        fullname : "Rayhan Rafiud Darojat",
+        username : "rafiudd",
+        email : "rayhanrafiudd@gmail.com",
+        phone : "088983210303",
+        password : "UUDGANS",
+        gender : "Laki Laki",
+        no_member : "GYMKU/{{uuid}}",
+        gym_class : {
+            name : "Aerobik",
+            type : "Personal"
+        },
+        gym_date : {
+           type : "Weekdays",
+           time : "9AM - 12PM"
+        },
+        gym_price :"200000",
+        trainer_id : "UUID",
+        isActived : "true",
+        isPayed : "true",
+        role : "user"
     }
     let checkEmail = await User.findOne({ "email" : model.email });
     let checkUsername = await User.findOne({ "username" : model.username });
