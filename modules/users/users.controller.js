@@ -14,7 +14,7 @@ router.post('/register', create);
 router.get('/all', getAll);
 router.get('/current', getCurrent);
 router.get('/', getById);
-router.put('/:id', update);
+router.put('/update', update);
 router.delete('/:id', _delete);
 
 module.exports = router;
@@ -136,14 +136,47 @@ async function getById(req, res, next) {
     return result
 }
 
-function update(req, res, next) {
-    userService.update(req.params.id, req.body)
-        .then(() => res.json({}))
-        .catch(err => next(err));
+async function update(req, res, next) {
+    let id = req.query.id;
+    let model = {
+        username : req.body.username,
+        fullname : req.body.fullname,
+        email : req.body.email,
+        phone : req.body.phone,
+        gender : req.body.gender,
+        address : req.body.address,
+        password : bcrypt.hashSync(req.body.password, 10),
+        gym_class : {
+            title : req.body.gym_class.title,
+            type : req.body.gym_class.type,
+            trainer_name : req.body.gym_class.trainer_name,
+            time_type : req.body.gym_class.time_type,
+            start_time : req.body.gym_class.start_time,
+            end_time : req.body.gym_class.end_time,
+        }
+    }
+
+    let checkUser = await User.findById(id);
+
+    if(!checkUser) {
+        return res.status(404).json({ "code" : 404, message : "Users Not Found"})
+    }
+
+    if(model.password) {
+        model.password = bcrypt.hashSync(model.password, 10);
+    }
+
+    Object.assign(checkUser, model);
+
+    let query = await checkUser.save();
+    let result = res.json({"message" : "Success Update User" , "code" : 200, "data" : query})
+    return result
 }
 
 function _delete(req, res, next) {
-    userService.delete(req.params.id)
-        .then(() => res.json({}))
-        .catch(err => next(err));
+    let id = req.query.id;
+    let query = await User.findByIdAndRemove(id);
+
+    let result = res.json({"message" : "Success Remove User" , "code" : 200, "data" : query})
+    return result
 }
