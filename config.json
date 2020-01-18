@@ -1,4 +1,5 @@
 {
     "connectionString": "mongodb://rafiudd:123123123@0.0.0.0:27017:27017/gymku",
-    "secret": "LOKIJUHYAQSWDE"
+    "secret": "LOKIJUHYAQSWDE",
+    "server": "localhost:8081"
 }
