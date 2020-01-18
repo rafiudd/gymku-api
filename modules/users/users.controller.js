@@ -15,7 +15,7 @@ router.get('/all', getAll);
 router.get('/current', getCurrent);
 router.get('/', getById);
 router.put('/update', update);
-router.delete('/:id', _delete);
+router.delete('/delete', _delete);
 
 module.exports = router;
 async function registerAdmin(req, res) {
@@ -173,7 +173,7 @@ async function update(req, res, next) {
     return result
 }
 
-function _delete(req, res, next) {
+async function _delete(req, res, next) {
     let id = req.query.id;
     let query = await User.findByIdAndRemove(id);
 
