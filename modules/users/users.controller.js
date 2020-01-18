@@ -13,7 +13,7 @@ router.post('/login', authenticate);
 router.post('/register', create);
 router.get('/all', getAll);
 router.get('/current', getCurrent);
-router.get('/:id', getById);
+router.get('/', getById);
 router.put('/:id', update);
 router.delete('/:id', _delete);
 
@@ -90,15 +90,6 @@ async function authenticate(req, res) {
     }
 }
 
-function register(req, res, next) {
-    console.log(req.body,['CONTROLLER'])
-    let userParam = req.body                                    
-    create()
-        .then(() => res.json({}))
-        .catch(err => next(err));
-    // console.log(create())
-}
-
 async function getAll(req, res, next) {
     let header = req.headers.authorization.split(' ')[1];
     let token = jwt.verify(header, config.secret);
@@ -134,10 +125,15 @@ function getCurrent(req, res, next) {
         .catch(err => next(err));
 }
 
-function getById(req, res, next) {
-    userService.getById(req.params.id)
-        .then(user => user ? res.json(user) : res.sendStatus(404))
-        .catch(err => next(err));
+async function getById(req, res, next) {
+    let model = {
+        id : req.query.id
+    }
+
+    let query = await User.findById(model.id);
+    let result = res.json({"message" : "Success Get User by Id" , "code" : 200, "data" : query })
+    
+    return result
 }
 
 function update(req, res, next) {
