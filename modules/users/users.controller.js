@@ -39,7 +39,21 @@ async function create(req,res) {
         username : req.body.username,
         fullname : req.body.fullname,
         email : req.body.email,
-        password : bcrypt.hashSync(req.body.password, 10)
+        phone : req.body.phone,
+        gender : req.body.gender,
+        address : req.body.address,
+        password : bcrypt.hashSync(req.body.password, 10),
+        gym_class : {
+            title : req.body.gym_class.title,
+            type : req.body.gym_class.type,
+            trainer_name : req.body.gym_class.trainer_name,
+            time_type : req.body.gym_class.time_type,
+            start_time : req.body.gym_class.start_time,
+            end_time : req.body.gym_class.end_time,
+        },
+        isTaken : true,
+        isActive : true,
+        role : "user"
     }
     let checkEmail = await User.findOne({ "email" : model.email });
     let checkUsername = await User.findOne({ "username" : model.username });
@@ -85,10 +99,22 @@ function register(req, res, next) {
     // console.log(create())
 }
 
-function getAll(req, res, next) {
-    userService.getAll()
-        .then(users => res.json(users))
-        .catch(err => next(err));
+async function getAll(req, res, next) {
+    let header = req.headers.authorization.split(' ')[1];
+    let token = jwt.verify(header, config.secret);
+    let isAdmin = await User.findOne({ "_id" : token.sub });
+    console.log(token, ['token'], isAdmin)
+
+    if(!isAdmin.role === "admin") {
+        return res.status(501).json({ "code" : 501, message : "You are not Admin"})
+    }
+    // if (checkEmail) {
+    //     return res.status(501).json({ "code" : 501, message : "Email is already taken"})
+    // }
+    let query = await User.find();
+    let result = res.json({"message" : "Success Register User" , "code" : 200, "data" : query})
+    
+    return result
 }
 
 function getCurrent(req, res, next) {

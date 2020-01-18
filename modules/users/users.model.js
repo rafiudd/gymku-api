@@ -7,6 +7,18 @@ const schema = new Schema({
     email: { type: String },
     password: { type: String },
     phone: { type: String },
+    gender: { type: String },
+    address: { type: String },
+    gym_class : {
+        title : { type:String },
+        type : { type:String },
+        trainer_name : { type:String },
+        time_type : { type:String },
+        start_time : { type:String },
+        end_time : { type:String },
+    },
+    isTaken : { type:String },
+    isActive : { type:String },
     role: { type: String },
     created_at: { type: Date, default: Date.now }
 });
