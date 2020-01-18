@@ -108,11 +108,22 @@ async function getAll(req, res, next) {
     if(!isAdmin.role === "admin") {
         return res.status(501).json({ "code" : 501, message : "You are not Admin"})
     }
-    // if (checkEmail) {
-    //     return res.status(501).json({ "code" : 501, message : "Email is already taken"})
-    // }
-    let query = await User.find();
-    let result = res.json({"message" : "Success Register User" , "code" : 200, "data" : query})
+    let pageOptions = {
+        page: req.query.page || 0,
+        limit: req.query.limit
+    }
+    let url = config.server;
+    let nextPage = `${url + '/api/users/all?page=' + (parseInt(pageOptions.page) + 1) + '&limit=' + pageOptions.limit}`
+    let previousPage = `${url + '/api/users/all?page=' + (parseInt(pageOptions.page) - 1) + '&limit=' + pageOptions.limit}`
+
+    if(parseInt(pageOptions.page) === 0) {
+        previousPage = null;
+    }
+
+    console.log(pageOptions,['QUERY'])
+
+    let query = await User.find().limit(parseInt(pageOptions.limit)).skip(parseInt(pageOptions.page) * parseInt(pageOptions.limit));
+    let result = res.json({"message" : "Success Get All User" , "code" : 200, "data" : query, "nextPage" : nextPage, "previousPage" : previousPage })
     
     return result
 }
