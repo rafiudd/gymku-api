@@ -114,7 +114,7 @@ async function getAll(req, res, next) {
 
     console.log(pageOptions,['QUERY'])
 
-    let query = await User.find().limit(parseInt(pageOptions.limit)).skip(parseInt(pageOptions.page) * parseInt(pageOptions.limit));
+    let query = await User.find({ "role" : "user"}).limit(parseInt(pageOptions.limit)).skip(parseInt(pageOptions.page) * parseInt(pageOptions.limit));
     let result = res.json({"message" : "Success Get All User" , "code" : 200, "data" : query, "nextPage" : nextPage, "previousPage" : previousPage })
     
     return result
