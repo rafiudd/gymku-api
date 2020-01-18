@@ -12,6 +12,7 @@ router.post('/admin/register', registerAdmin);
 router.post('/login', authenticate);
 router.post('/register', create);
 router.get('/all', getAll);
+router.get('/search', searchQuery)
 router.get('/current', getCurrent);
 router.get('/', getById);
 router.put('/update', update);
@@ -178,5 +179,28 @@ async function _delete(req, res, next) {
     let query = await User.findByIdAndRemove(id);
 
     let result = res.json({"message" : "Success Remove User" , "code" : 200, "data" : query})
+    return result
+}
+
+async function searchQuery(req, res) {
+    let model = {
+        username : req.query.username,
+        fullname : req.query.fullname,
+        email : req.query.email
+    }
+    let query;
+    if(model.email) {
+        query = await User.find({ email : model.email});
+    }
+
+    if(model.fullname) {
+        query = await User.find({ fullname : model.fullname});
+    }
+
+    if(model.username) {
+        query = await User.find({ username : model.username});
+    }
+
+    let result = res.json({"message" : "Success Searcg User" , "code" : 200, "data" : query})
     return result
 }
