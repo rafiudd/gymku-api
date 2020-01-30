@@ -174,9 +174,6 @@ async function update(req, res, next) {
         }
     }
 
-    // console.log(req,['REQ'])
-    
-    // console.log(JSON.stringify(req.body),['REQ BODY'])
     console.log(model,['MODEL'])
     console.log(req.body.body,['REQ BODY QUERY'])
 
