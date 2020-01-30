@@ -65,7 +65,7 @@ async function create(req,res) {
     if(checkUsername) {
         return res.status(501).json({ "code" : 501, message : "Username is already taken"})
     }
-    console.log(model)
+    // console.log(model)
     const user = new User(model)
    
     let query = await user.save();
@@ -95,7 +95,7 @@ async function getAll(req, res, next) {
     let header = req.headers.authorization.split(' ')[1];
     let token = jwt.verify(header, config.secret);
     let isAdmin = await User.findOne({ "_id" : token.sub });
-    console.log(token, ['token'], isAdmin)
+    // console.log(token, ['token'], isAdmin)
 
     if(!isAdmin.role === "admin") {
         return res.status(501).json({ "code" : 501, message : "You are not Admin"})
@@ -112,7 +112,7 @@ async function getAll(req, res, next) {
         previousPage = null;
     }
 
-    console.log(pageOptions,['QUERY'])
+    // console.log(pageOptions,['QUERY'])
 
     let query = await User.find({ "role" : "user"}).limit(parseInt(pageOptions.limit)).skip(parseInt(pageOptions.page) * parseInt(pageOptions.limit));
     let result = res.json({"message" : "Success Get All User" , "code" : 200, "data" : query, "nextPage" : nextPage, "previousPage" : previousPage })
@@ -156,33 +156,18 @@ async function getById(req, res, next) {
 
 async function update(req, res, next) {
     let id = req.query.id;
-    let model = {
-        username : req.body.username,
-        fullname : req.body.fullname,
-        email : req.body.email,
-        phone : req.body.phone,
-        gender : req.body.gender,
-        address : req.body.address,
-        password : req.body.password,
-        gym_class : {
-            title : req.body.title,
-            type : req.body.type,
-            trainer_name : req.body.trainer_name,
-            time_type : req.body.time_type,
-            start_time : req.body.start_time,
-            end_time : req.body.end_time,
-        }
-    }
+    let { model } = req.body
 
     // let checkUser = await User.findById(id);
 
     // if(!checkUser) {
     //     return res.status(404).json({ "code" : 404, message : "Users Not Found"})
     // }
+    console.log(req)
     console.log(model,['UPDATE MODEL'])
-    if(model.password) {
-        model.password = bcrypt.hashSync(model.password, 10);
-    }
+    // if(model.password) {
+    //     model.password = bcrypt.hashSync(model.password, 10);
+    // }
     let query = User.findByIdAndUpdate(id,model,{new : true}).then( res => {
         if(!res) {
             return res.status(404).json({ "code" : 404, message : "Users Not Found"})
