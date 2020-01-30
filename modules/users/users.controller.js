@@ -132,7 +132,24 @@ async function getById(req, res, next) {
     }
 
     let query = await User.findById(model.id);
-    let result = res.json({"message" : "Success Get User by Id" , "code" : 200, "data" : query })
+    let newModel = {
+        username : query.username,
+        fullname: query.fullname,
+        email : query.email,
+        phone : query.phone,
+        gender : query.gender,
+        address : query.address,
+        password : bcrypt.hashSync(query.password, 10),
+        gym_class : {
+            title : query.gym_class.title,
+            type : query.gym_class.type,
+            trainer_name : query.gym_class.trainer_name,
+            time_type : query.gym_class.time_type,
+            start_time : query.gym_class.start_time,
+            end_time : query.gym_class.end_time,
+        }
+    }
+    let result = res.json({"message" : "Success Get User by Id" , "code" : 200, "data" : newModel })
     
     return result
 }
