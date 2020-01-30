@@ -174,19 +174,23 @@ async function update(req, res, next) {
         }
     }
 
-    let checkUser = await User.findById(id);
+    // let checkUser = await User.findById(id);
 
-    if(!checkUser) {
-        return res.status(404).json({ "code" : 404, message : "Users Not Found"})
-    }
-
+    // if(!checkUser) {
+    //     return res.status(404).json({ "code" : 404, message : "Users Not Found"})
+    // }
+    console.log(model,['UPDATE MODEL'])
     if(model.password) {
         model.password = bcrypt.hashSync(model.password, 10);
     }
-
-    Object.assign(checkUser, model);
-
-    let query = await checkUser.save();
+    let query = User.findByIdAndUpdate(id,model,{new : true}).then( res => {
+        if(!res) {
+            return res.status(404).json({ "code" : 404, message : "Users Not Found"})
+        }
+    })
+    // Object.assign(checkUser, model);
+    // console.log(model)
+    // let query = await checkUser.save();
     let result = res.json({"message" : "Success Update User" , "code" : 200, "data" : query})
     return result
 }
