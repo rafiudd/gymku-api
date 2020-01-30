@@ -12,7 +12,8 @@ function jwt() {
             '/',
             '/api/users/login',
             '/api/users/register',
-            '/api/users/admin/register'
+            '/api/users/admin/register',
+	    '/api/users/update'
         ]
     });
 }
