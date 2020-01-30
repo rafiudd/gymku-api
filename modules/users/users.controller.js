@@ -157,26 +157,27 @@ async function getById(req, res, next) {
 async function update(req, res, next) {
     let id = req.query.id;
     let model = {
-        username : req.body.username,
-        fullname : req.body.fullname,
-        email : req.body.email,
-        phone : req.body.phone,
-        gender : req.body.gender,
-        address : req.body.address,
-        password : req.body.password,
+        username : req.body.body.username,
+        fullname : req.body.body.fullname,
+        email : req.body.body.email,
+        phone : req.body.body.phone,
+        gender : req.body.body.gender,
+        address : req.body.body.address,
+        password : req.body.body.password,
         gym_class : {
-            title : req.body.title,
-            type : req.body.type,
-            trainer_name : req.body.trainer_name,
-            time_type : req.body.time_type,
-            start_time : req.body.start_time,
-            end_time : req.body.end_time,
+            title : req.body.body.gym_class.title,
+            type : req.body.body.gym_class.type,
+            trainer_name : req.body.body.gym_class.trainer_name,
+            time_type : req.body.body.gym_class.time_type,
+            start_time : req.body.body.gym_class.start_time,
+            end_time : req.body.body.gym_class.end_time,
         }
     }
 
     // console.log(req,['REQ'])
     
-    console.log(JSON.stringify(req.body),['REQ BODY'])
+    // console.log(JSON.stringify(req.body),['REQ BODY'])
+    console.log(model,['MODEL'])
     console.log(req.body.body,['REQ BODY QUERY'])
 
     let checkUser = await User.findById(id);
