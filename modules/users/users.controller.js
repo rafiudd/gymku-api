@@ -165,12 +165,12 @@ async function update(req, res, next) {
         address : req.body.address,
         password : req.body.password,
         gym_class : {
-            title : req.body.gym_class.title,
-            type : req.body.gym_class.type,
-            trainer_name : req.body.gym_class.trainer_name,
-            time_type : req.body.gym_class.time_type,
-            start_time : req.body.gym_class.start_time,
-            end_time : req.body.gym_class.end_time,
+            title : req.body.title,
+            type : req.body.type,
+            trainer_name : req.body.trainer_name,
+            time_type : req.body.time_type,
+            start_time : req.body.start_time,
+            end_time : req.body.end_time,
         }
     }
 
