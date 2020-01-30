@@ -163,7 +163,7 @@ async function update(req, res, next) {
         phone : req.body.phone,
         gender : req.body.gender,
         address : req.body.address,
-        password : bcrypt.hashSync(req.body.password, 10),
+        password : req.body.password,
         gym_class : {
             title : req.body.gym_class.title,
             type : req.body.gym_class.type,
