@@ -156,7 +156,7 @@ async function getById(req, res, next) {
 
 async function update(req, res, next) {
     let id = req.query.id;
-    let { model } = req.body
+    let { model } = req.body.body
 
     // let checkUser = await User.findById(id);
 
