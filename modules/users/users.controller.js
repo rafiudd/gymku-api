@@ -373,7 +373,8 @@ async function getById(req, res, next) {
             time_type : query.gym_class.time_type,
             start_time : query.gym_class.start_time,
             end_time : query.gym_class.end_time,
-        }
+        },
+        price : query.price
     }
     let result = res.json({"message" : "Success Get User by Id" , "code" : 200, "data" : newModel })
     
