@@ -20,6 +20,7 @@ const schema = new Schema({
     isTaken : { type:String },
     isActive : { type:String },
     role: { type: String },
+    price : { type: String },
     created_at: { type: Date, default: Date.now }
 });
 
