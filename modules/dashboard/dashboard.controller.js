@@ -14,18 +14,22 @@ async function getAll(req, res, next) {
     let header = req.headers.authorization.split(' ')[1];
     let token = jwt.verify(header, config.secret);
     let isAdmin = await User.findOne({ "_id" : token.sub });
-    console.log(token, ['token'], isAdmin)
 
     if(!isAdmin.role === "admin") {
         return res.status(501).json({ "code" : 501, message : "You are not Admin"})
     }
 
     let query = await User.find({ "role" : "user"});
+
+    let price = query.reduce(function(previousValue, currentValue) {
+        return parseInt(previousValue.price) + parseInt(currentValue.price)
+    });
+    
     let model = {
         countUser : query.length,
-        countPrice : query.price
+        countPrice : price
     }
-    let result = res.json({"message" : "Success Get All User" , "code" : 200, "data" : query, "nextPage" : nextPage, "previousPage" : previousPage })
+    let result = res.json({"message" : "Success Get All User" , "code" : 200, "data" : model })
     
     return result
 }
