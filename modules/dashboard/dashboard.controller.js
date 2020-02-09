@@ -29,7 +29,7 @@ async function getAll(req, res, next) {
         countUser : query.length,
         countPrice : price
     }
-    let result = res.json({"message" : "Success Get All User" , "code" : 200, "data" : model })
+    let result = res.json({"message" : "Success Get Data" , "code" : 200, "data" : model })
     
     return result
 }
