@@ -383,26 +383,122 @@ async function getById(req, res, next) {
 
 async function update(req, res, next) {
     let id = req.query.id;
-    let model = {
-        username : req.body.body.username,
-        fullname : req.body.body.fullname,
-        email : req.body.body.email,
-        phone : req.body.body.phone,
-        gender : req.body.body.gender,
-        address : req.body.body.address,
-        password : req.body.body.password,
-        gym_class : {
-            title : req.body.body.gym_class.title,
-            type : req.body.body.gym_class.type,
-            trainer_name : req.body.body.gym_class.trainer_name,
-            time_type : req.body.body.gym_class.time_type,
-            start_time : req.body.body.gym_class.start_time,
-            end_time : req.body.body.gym_class.end_time,
+    let model;
+    if(req.body.body.gym_class.time_type === '1 Hari') {
+        model = {
+            username : req.body.body.username,
+            fullname : req.body.body.fullname,
+            email : req.body.body.email,
+            phone : req.body.body.phone,
+            gender : req.body.body.gender,
+            address : req.body.body.address,
+            password : req.body.body.password,
+            gym_class : {
+                title : req.body.body.gym_class.title,
+                type : req.body.body.gym_class.type,
+                trainer_name : req.body.body.gym_class.trainer_name,
+                time_type : req.body.body.gym_class.time_type,
+                start_time : req.body.body.gym_class.start_time,
+                end_time : req.body.body.gym_class.end_time,
+            },
+            price : '30000'
+        }
+    } else if(req.body.body.gym_class.time_type === '3 Hari') {
+        model = {
+            username : req.body.body.username,
+            fullname : req.body.body.fullname,
+            email : req.body.body.email,
+            phone : req.body.body.phone,
+            gender : req.body.body.gender,
+            address : req.body.body.address,
+            password : req.body.body.password,
+            gym_class : {
+                title : req.body.body.gym_class.title,
+                type : req.body.body.gym_class.type,
+                trainer_name : req.body.body.gym_class.trainer_name,
+                time_type : req.body.body.gym_class.time_type,
+                start_time : req.body.body.gym_class.start_time,
+                end_time : req.body.body.gym_class.end_time,
+            },
+            price : '90000'
+        }
+    } else if(req.body.body.gym_class.time_type === '1 Minggu') {
+        model = {
+            username : req.body.body.username,
+            fullname : req.body.body.fullname,
+            email : req.body.body.email,
+            phone : req.body.body.phone,
+            gender : req.body.body.gender,
+            address : req.body.body.address,
+            password : req.body.body.password,
+            gym_class : {
+                title : req.body.body.gym_class.title,
+                type : req.body.body.gym_class.type,
+                trainer_name : req.body.body.gym_class.trainer_name,
+                time_type : req.body.body.gym_class.time_type,
+                start_time : req.body.body.gym_class.start_time,
+                end_time : req.body.body.gym_class.end_time,
+            },
+            price : '120000'
+        }
+    } else if(req.body.body.gym_class.time_type === '1 Bulan') {
+        model = {
+            username : req.body.body.username,
+            fullname : req.body.body.fullname,
+            email : req.body.body.email,
+            phone : req.body.body.phone,
+            gender : req.body.body.gender,
+            address : req.body.body.address,
+            password : req.body.body.password,
+            gym_class : {
+                title : req.body.body.gym_class.title,
+                type : req.body.body.gym_class.type,
+                trainer_name : req.body.body.gym_class.trainer_name,
+                time_type : req.body.body.gym_class.time_type,
+                start_time : req.body.body.gym_class.start_time,
+                end_time : req.body.body.gym_class.end_time,
+            },
+            price : '399000'
+        } 
+    } else if(req.body.body.gym_class.time_type === '3 Bulan') {
+        model = {
+            username : req.body.body.username,
+            fullname : req.body.body.fullname,
+            email : req.body.body.email,
+            phone : req.body.body.phone,
+            gender : req.body.body.gender,
+            address : req.body.body.address,
+            password : req.body.body.password,
+            gym_class : {
+                title : req.body.body.gym_class.title,
+                type : req.body.body.gym_class.type,
+                trainer_name : req.body.body.gym_class.trainer_name,
+                time_type : req.body.body.gym_class.time_type,
+                start_time : req.body.body.gym_class.start_time,
+                end_time : req.body.body.gym_class.end_time,
+            },
+            price : '999000'
+        }
+    } else if(req.body.body.gym_class.time_type === '6 Bulan') {
+        model = {
+            username : req.body.body.username,
+            fullname : req.body.body.fullname,
+            email : req.body.body.email,
+            phone : req.body.body.phone,
+            gender : req.body.body.gender,
+            address : req.body.body.address,
+            password : req.body.body.password,
+            gym_class : {
+                title : req.body.body.gym_class.title,
+                type : req.body.body.gym_class.type,
+                trainer_name : req.body.body.gym_class.trainer_name,
+                time_type : req.body.body.gym_class.time_type,
+                start_time : req.body.body.gym_class.start_time,
+                end_time : req.body.body.gym_class.end_time,
+            },
+            price : '3699000'
         }
     }
-
-    console.log(model,['MODEL'])
-    console.log(req.body.body,['REQ BODY QUERY'])
 
     let checkUser = await User.findById(id);
 
