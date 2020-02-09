@@ -222,6 +222,80 @@ async function create(req,res) {
         let query = await user.save();
         let result = res.json({"message" : "Success Register User" , "code" : 200, "data" : query})
         return result
+    } else if(req.body.gym_class === '6 Bulan') {
+        model = {
+            username : req.body.username,
+            fullname : req.body.fullname,
+            email : req.body.email,
+            phone : req.body.phone,
+            gender : req.body.gender,
+            address : req.body.address,
+            password : bcrypt.hashSync(req.body.password, 10),
+            gym_class : {
+                title : req.body.gym_class.title,
+                type : req.body.gym_class.type,
+                trainer_name : req.body.gym_class.trainer_name,
+                time_type : req.body.gym_class.time_type,
+                start_time : req.body.gym_class.start_time,
+                end_time : req.body.gym_class.end_time,
+            },
+            isTaken : true,
+            isActive : true,
+            role : "user",
+            price : '2599000'
+        }
+        let checkEmail = await User.findOne({ "email" : model.email });
+        let checkUsername = await User.findOne({ "username" : model.username });
+        if (checkEmail) {
+            return res.status(501).json({ "code" : 501, message : "Email is already taken"})
+        }
+    
+        if(checkUsername) {
+            return res.status(501).json({ "code" : 501, message : "Username is already taken"})
+        }
+        console.log(model)
+        const user = new User(model)
+       
+        let query = await user.save();
+        let result = res.json({"message" : "Success Register User" , "code" : 200, "data" : query})
+        return result
+        }  else if(req.body.gym_class === '1 Tahun') {
+        model = {
+            username : req.body.username,
+            fullname : req.body.fullname,
+            email : req.body.email,
+            phone : req.body.phone,
+            gender : req.body.gender,
+            address : req.body.address,
+            password : bcrypt.hashSync(req.body.password, 10),
+            gym_class : {
+                title : req.body.gym_class.title,
+                type : req.body.gym_class.type,
+                trainer_name : req.body.gym_class.trainer_name,
+                time_type : req.body.gym_class.time_type,
+                start_time : req.body.gym_class.start_time,
+                end_time : req.body.gym_class.end_time,
+            },
+            isTaken : true,
+            isActive : true,
+            role : "user",
+            price : '3699000'
+        }
+        let checkEmail = await User.findOne({ "email" : model.email });
+        let checkUsername = await User.findOne({ "username" : model.username });
+        if (checkEmail) {
+            return res.status(501).json({ "code" : 501, message : "Email is already taken"})
+        }
+    
+        if(checkUsername) {
+            return res.status(501).json({ "code" : 501, message : "Username is already taken"})
+        }
+        console.log(model)
+        const user = new User(model)
+       
+        let query = await user.save();
+        let result = res.json({"message" : "Success Register User" , "code" : 200, "data" : query})
+        return result
     }
 }
 

@@ -23,7 +23,7 @@ app.get('/', function (req, res) {
     });
 });
 app.use('/api/users', require('./modules/users/users.controller'));
-// app.use('/api/haji', require('./modules/haji/haji.controller'));
+app.use('/api/dashboard', require('./modules/dashboard/dashboard.controller'));
 
 // global error handler
 app.use(errorHandler);
