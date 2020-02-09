@@ -259,7 +259,9 @@ async function create(req,res) {
         let query = await user.save();
         let result = res.json({"message" : "Success Register User" , "code" : 200, "data" : query})
         return result
+
         }  else if(req.body.gym_class === '1 Tahun') {
+
         model = {
             username : req.body.username,
             fullname : req.body.fullname,
@@ -480,6 +482,25 @@ async function update(req, res, next) {
             price : '999000'
         }
     } else if(req.body.body.gym_class.time_type === '6 Bulan') {
+        model = {
+            username : req.body.body.username,
+            fullname : req.body.body.fullname,
+            email : req.body.body.email,
+            phone : req.body.body.phone,
+            gender : req.body.body.gender,
+            address : req.body.body.address,
+            password : req.body.body.password,
+            gym_class : {
+                title : req.body.body.gym_class.title,
+                type : req.body.body.gym_class.type,
+                trainer_name : req.body.body.gym_class.trainer_name,
+                time_type : req.body.body.gym_class.time_type,
+                start_time : req.body.body.gym_class.start_time,
+                end_time : req.body.body.gym_class.end_time,
+            },
+            price : '2599000'
+        }
+    } else if(req.body.body.gym_class.time_type === '1 Tahun') {
         model = {
             username : req.body.body.username,
             fullname : req.body.body.fullname,
